@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lamp Filament Power Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial, sans-serif';
+            background-color: beige;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 50px;
+            color: #007bff;
+        }
+
+        .calculator {
+            background-color: white;
+            width: 90%;
+            max-width: 400px;
+            margin: 30px auto;
+            padding: 20px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            font-size: 1.2em;
+            margin: 15px 0 5px;
+            text-align: left;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .error {
+            color: #d9534f;
+            font-size: 0.9em;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lamp Filament Power Calculator</h1>
+    <div class="calculator">
+        <label for="intensity">Intensity (I) in Amperes:</label>
+        <input type="number" id="intensity" placeholder="Enter Intensity (A)" step="0.01" min="0">
+
+        <label for="resistance">Resistance (R) in Ohms:</label>
+        <input type="number" id="resistance" placeholder="Enter Resistance (Ω)" step="0.01" min="0">
+
+        <button onclick="calculatePower()">Calculate Power</button>
+
+        <div class="result" id="result"></div>
+        <div class="error" id="error"></div>
+    </div>
+
+    <script>
+        function calculatePower() {
+            const intensity = parseFloat(document.getElementById('intensity').value);
+            const resistance = parseFloat(document.getElementById('resistance').value);
+            const resultDiv = document.getElementById('result');
+            const errorDiv = document.getElementById('error');
+
+            // Clear previous messages
+            resultDiv.textContent = '';
+            errorDiv.textContent = '';
+
+            if (isNaN(intensity) || isNaN(resistance) || intensity < 0 || resistance < 0) {
+                errorDiv.textContent = 'Please enter valid positive numbers for both Intensity and Resistance.';
+                return;
+            }
+
+            const power = (intensity ** 2) * resistance;
+            resultDiv.textContent = `Power (P) = ${power.toFixed(2)} Watts`;
+        }
+    </script>
+</body>
+</html>
